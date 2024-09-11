@@ -1,3 +1,5 @@
+###  Examine the contents of this file if you want to write your own tests, but
+###  Do not edit or otherwise change this!!
 import pytest
 from app import app
 import subprocess
