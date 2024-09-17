@@ -16,6 +16,38 @@ def test_home_page(client):
     assert response.status_code == 200
     assert b'Welcome' in response.data
 
+def test_add_transaction_page(client):
+    # Test that the add transaction page loads and contains the transaction form
+    response = client.get('/add_transaction')
+    assert response.status_code == 200
+    assert b'Add Transaction' in response.data  # Check if the page title is present
+    assert b'<form' in response.data  # Check if a form is present
+
+def test_form_validation(client):
+    # Test that form fields have client-side validation (e.g., 'required' attribute)
+    response = client.get('/add_transaction')
+    assert b'required' in response.data  # Check if 'required' attribute is used
+
+def test_edit_transaction_page(client):
+    # Test that the edit transaction page loads (mock id)
+    response = client.get('/edit_transaction/1')
+    assert response.status_code == 200
+    assert b'Edit Transaction' in response.data  # Check if the page title is present
+    assert b'<form' in response.data  # Check if a form is present
+
+def test_manage_categories_page(client):
+    # Test that the manage categories page loads and contains the category form
+    response = client.get('/categories')
+    assert response.status_code == 200
+    assert b'Manage Categories' in response.data  # Check if the page title is present
+    assert b'<form' in response.data  # Check if a form is present
+
+def test_reports_page(client):
+    # Test that the reports page loads correctly
+    response = client.get('/reports')
+    assert response.status_code == 200
+    assert b'Reports' in response.data  # Check if the page title is present
+
 def test_template_inheritance(client):
     # Test that base.html is being used (assume base.html contains the word 'Footer')
     response = client.get('/')
